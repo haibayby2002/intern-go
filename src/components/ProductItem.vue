@@ -1,6 +1,7 @@
 
 <script setup>
-import {onMounted, ref, shallowRef} from "vue"
+import {computed, onMounted, ref, shallowRef} from "vue"
+import {useStore} from 'vuex'
 const props = defineProps({
   src: String,
   name: String,
@@ -8,6 +9,9 @@ const props = defineProps({
   price: Number,
   color: String
 });
+const store = useStore()
+// const count = computed(() => store.state.count)
+const items = computed(()=> store.state.product_items)
 
 const emit = defineEmits({
     onAddToCart: ({ name, description, src, price }) => {
@@ -19,9 +23,11 @@ const is_added_to_cart = shallowRef(false)
 function add_to_cart(){
     is_added_to_cart.value = true;
     emit('onAddToCart', props)
-    console.log("In item ", props.name)
+    // console.log()
+    // console.log("In item ", props.name)
     
 }
+
 
 function remove_from_cart(){
     is_added_to_cart.value = false;

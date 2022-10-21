@@ -1,30 +1,33 @@
 
 <script setup>
-import { shallowRef } from '@vue/reactivity'
+import {computed, onMounted, ref, shallowRef} from "vue"
+import {useStore} from 'vuex'
 import CartItem from './CartItem.vue'
 
 
-let total = 0
+// let total = 0
 let item_count = 0
-const items = shallowRef([{
-        "id": 1,
-        "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png",
-        "name": "Nike Air Zoom Pegasus 36",
-        "price": 108.97,
-        "color": "#e1e7ed",
-        "quantity": 1
-      },
-      {
-        "id": 2,
-        "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-shield-mens-running-shoe-24FBGb__1_-removebg-preview.png",
-        "name": "Nike Air Zoom Pegasus 36 Shield",
-        "price": 89.97,
-        "color": "#4D317F",
-        "quantity": 1
-      }
-    ]
-)
-
+// const items = shallowRef([{
+//         "id": 1,
+//         "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png",
+//         "name": "Nike Air Zoom Pegasus 36",
+//         "price": 108.97,
+//         "color": "#e1e7ed",
+//         "quantity": 1
+//       },
+//       {
+//         "id": 2,
+//         "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-shield-mens-running-shoe-24FBGb__1_-removebg-preview.png",
+//         "name": "Nike Air Zoom Pegasus 36 Shield",
+//         "price": 89.97,
+//         "color": "#4D317F",
+//         "quantity": 1
+//       }
+//     ]
+// )
+const store = useStore()
+const items = computed(()=> store.state.cart_items)
+const total = computed(()=> store.getters.get_total)
 function update_total(){
     total = 0
     items.value.forEach(item => {

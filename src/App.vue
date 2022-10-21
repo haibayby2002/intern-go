@@ -3,6 +3,7 @@
 // import TheWelcome from './components/TheWelcome.vue'
 // import ProductItem from './components/ProductItem.vue'
 // import CartItem from './components/CartItem.vue'
+import {Store} from 'vuex'
 import Cart from './components/Cart.vue'
 import Product from './components/Product.vue'
 
