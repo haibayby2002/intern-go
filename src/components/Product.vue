@@ -103,22 +103,15 @@ function add_item_to_cart(name, description, src, price){
         <div class="card-title">Our Products</div>
         <div class="card-body">
             <div class="shop-items">
-                    <!-- <ProductItem :name="items[0].name" :src="items[0].src" :description="items[0].description" :price="items[0].price" /> -->
-                    <ProductItem 
-                      name="Nike Air Zoom Pegasus 36 Shield" 
-                      src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-shield-mens-running-shoe-24FBGb__1_-removebg-preview.png" 
-                      description="The Nike Air Zoom Pegasus 36 Shield gets updated to conquer wet routes. A water-repellent upper combines with an outsole that helps create grip on wet    surfaces, letting you run in confidence despite the weather." 
-                      price="84"
-                    />
                     <ProductItem v-for="item in items" :key="item.id"
                       :name="item.name" 
                       :src="item.image" 
                       :description="item.description" 
                       :price="item.price"
                       :color="item.color"
+                      :id="item.id"
                       @onAddToCart="add_item_to_cart(item.name, item.image, item.description, item.price)"
                     />
-                    <!-- <app-user-detail :age="age" @ageWasUpdated="age = $event"></app-user-detail> -->
             </div>
         </div>
     </div>

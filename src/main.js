@@ -89,7 +89,7 @@ const store = createStore({
               "color": "#54D4C9"
             }
           ],
-        cart_items: [{
+        cart_items: [/*{
             "id": 1,
             "image": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png",
             "name": "Nike Air Zoom Pegasus 36",
@@ -104,23 +104,28 @@ const store = createStore({
             "price": 89.97,
             "color": "#4D317F",
             "quantity": 1
-          }
+          }*/
         ]
       }
     },
     mutations: {
-      
-      add_item_to_cart(item){
+      add_item_to_cart(state, item_id){
+        let item = store.state.product_items.filter((x) => x.id == item_id)
+        delete item.description
+        item = item[0]
+        item['quantity'] = 1
+        // console.log(item)
+        store.state.cart_items.push(item)
+        // console.log(store.state.cart_items)
+      },
+      remove_item_from_cart(item_id){
         
       },
-      remove_item_from_cart(item){
-
-      },
-      increase_quantity(cart_item){
-
-      },
-      decrease_quantity(cart_item){
-
+      update_quantity(state, obj){
+        let index = store.state.cart_items.findIndex((x) => x.id == obj['id'])
+        // console.log(obj['quantity'])
+        let new_quantity = obj['quantity']
+        store.state.cart_items[index]['quantity'] = new_quantity
       }
     },
     getters:{

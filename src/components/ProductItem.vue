@@ -3,6 +3,7 @@
 import {computed, onMounted, ref, shallowRef} from "vue"
 import {useStore} from 'vuex'
 const props = defineProps({
+  id: Number,
   src: String,
   name: String,
   description: String,
@@ -22,9 +23,8 @@ const is_added_to_cart = shallowRef(false)
 
 function add_to_cart(){
     is_added_to_cart.value = true;
-    emit('onAddToCart', props)
-    // console.log()
-    // console.log("In item ", props.name)
+    // console.log(props.id)
+    store.commit('add_item_to_cart', props.id)
     
 }
 
