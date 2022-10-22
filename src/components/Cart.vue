@@ -19,12 +19,14 @@ const total = computed(()=> store.getters.get_total)
                     class="card-top-logo"></div>
             <div class="card-title">Your cart<span class="card-title-amount">${{total.toFixed(2)}}</span></div>
             <div class="card-body">
-                <!---->
-                <div class="cart-items">
-                  <div>
-                    <CartItem v-for="item in items" :key="item.id" :name="item.name" :src="item.image" :price="item.price" :color="item.color" :id="item.id"/>
-                  </div>  
-                </div>
+              <div v-if="total==0" class="cart-empty">
+                <p class="cart-empty-text">Your cart is empty.</p>
+              </div>
+              <div class="cart-items">
+                <div>
+                  <CartItem v-for="item in items" :key="item.id" :name="item.name" :src="item.image" :price="item.price" :color="item.color" :id="item.id"/>
+                </div>  
+              </div>
             </div>
         </div>
 </template>
