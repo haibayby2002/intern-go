@@ -10,20 +10,6 @@ const store = createStore({
       return {
         product_items: shoes,
         cart_items: [],
-        // cart_items: VueCookieNext.keys().map((value, index)=>{
-        //   console.log(value)
-        //   let item_id = parseInt(value)
-        //   let item_quantity = VueCookieNext.getCookie(value)
-        //   let item = store.state.product_items.filter((x) => x.id == value)[0]
-        //   return {
-        //     'id' : item_id, 
-        //     'quantity':item_quantity,
-        //     'name':item.name,
-        //     'image':item.image,
-        //     'color': item.color,
-        //     'price' : item.price
-        //   }
-        // })
       }
     },
     mutations: {
@@ -46,11 +32,9 @@ const store = createStore({
       },
       update_quantity(state, obj){
         let index = store.state.cart_items.findIndex((x) => x.id == obj['id'])
-        // console.log(obj['quantity'])
         let new_quantity = obj['quantity']
         store.state.cart_items[index]['quantity'] = new_quantity
         VueCookieNext.setCookie(obj['id'], new_quantity)
-        console.log(VueCookieNext.getCookie(obj['id']))
       }
     },
     getters:{
@@ -61,7 +45,6 @@ const store = createStore({
         return store.state.cart_items.reduce((res,acc)=>res + acc.price * acc.quantity,0)
       },
       items_added_to_cart() {
-        // console.log(store.state.cart_items.map((x) => (x.id)))
         return store.state.cart_items.map((x) => (x.id))
       }
       
