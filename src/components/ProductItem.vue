@@ -21,6 +21,7 @@ const item_added_to_cart = shallowRef(computed(() => store.getters.items_added_t
 const is_added_to_cart = computed(()=> item_added_to_cart.value.includes(props.id))
 function add_to_cart(){
     store.commit('add_item_to_cart', props.id)
+    
     // console.log(item_added_to_cart.value)
     // console.log(is_added_to_cart.value)
 }

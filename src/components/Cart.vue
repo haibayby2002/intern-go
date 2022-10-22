@@ -2,6 +2,8 @@
 <script setup>
 import {computed, onMounted, ref, shallowRef} from "vue"
 import {useStore} from 'vuex'
+import { VueCookieNext } from 'vue-cookie-next'
+// import { VueCookieNext } from 'vue-cookie-next'
 import CartItem from './CartItem.vue'
 
 
@@ -9,7 +11,23 @@ const store = useStore()
 const items = shallowRef(computed(()=> store.state.cart_items))
 const total = computed(()=> store.getters.get_total)
 
+onMounted(() => {
+  store.state.cart_items = VueCookieNext.keys().map((value)=>{
+          // console.log(VueCookieNext.getCookie(value))
+          let item_id = parseInt(value)
+          let item_quantity = parseInt(VueCookieNext.getCookie(value))
+          let item = store.state.product_items.filter((x) => x.id == value)[0]
+          return {
+            'id' : item_id, 
+            'quantity':item_quantity,
+            'name':item.name,
+            'image':item.image,
+            'color': item.color,
+            'price' : item.price
+          }
+  })
 
+})
 </script>
 
 <template>
@@ -24,7 +42,7 @@ const total = computed(()=> store.getters.get_total)
               </div>
               <div class="cart-items">
                 <div>
-                  <CartItem v-for="item in items" :key="item.id" :name="item.name" :src="item.image" :price="item.price" :color="item.color" :id="item.id"/>
+                  <CartItem v-for="item in items" :key="item.id" :name="item.name" :src="item.image" :price="item.price" :color="item.color" :id="item.id" :quantity="item.quantity"/>
                 </div>  
               </div>
             </div>

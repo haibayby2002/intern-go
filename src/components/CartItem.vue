@@ -7,11 +7,15 @@ const props = defineProps({
   name: String,
   price: Number,
   id: Number,
-  color: String
+  color: String,
+  quantity: {
+    type: Number,
+    default: 1
+  }
 })
 
 const store = useStore()
-const quantity = shallowRef(1)
+const quantity = shallowRef(props.quantity)
 function increase_quantity(){
     quantity.value++;
     store.commit('update_quantity', {'id': props.id, 'quantity': quantity.value})
